@@ -48,7 +48,8 @@ usersRouter.post("/", verifyToken, async (req, res) => {
 });
 
 usersRouter.delete("/:id", verifyToken, async (req, res) => {
-  const id = req.params.id;
+  const id = +mysql.escape(req.params.id).replaceAll("'", "");
+
   const query = `DELETE FROM users WHERE id = ${id}`;
 
   try {

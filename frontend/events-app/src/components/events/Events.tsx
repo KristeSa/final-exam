@@ -44,13 +44,18 @@ export const Events = () => {
             <Typography component="h1" variant="h4" pb="60px">
               Events
             </Typography>
-            <Grid container spacing="30px" justifyContent="center">
+            <Grid
+              container
+              spacing="30px"
+              justifyContent="center"
+              aria-label="events-container"
+            >
               {events.map((event) => (
                 <Grid
                   key={event.id}
                   item
                   md={4}
-                  className="event-container"
+                  aria-label="event-container"
                   justifyContent="center"
                   alignItems="center"
                   margin="10px"

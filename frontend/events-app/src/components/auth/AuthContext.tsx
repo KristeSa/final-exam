@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }: any) => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("token");
-    console.log(token);
 
     if (!accessToken) {
       navigate("/login");

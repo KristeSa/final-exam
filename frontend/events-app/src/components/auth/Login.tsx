@@ -29,6 +29,7 @@ export const Login: React.FC = () => {
         localStorage.setItem("token", token);
         setUser(user);
         alert("Login successful");
+
         navigate("/events");
       });
     } catch (error) {
@@ -37,13 +38,19 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <Box component="form" margin="30px" onSubmit={handleLogin}>
+    <Box
+      component="form"
+      margin="30px"
+      onSubmit={handleLogin}
+      aria-label="handle-login"
+    >
       <Grid item xs={12}>
         <TextField
           required
           sx={{ margin: "10px", width: "350px" }}
           type="email"
           name="email"
+          aria-label="email"
           label="email"
           value={state.email}
           onChange={handleInputChange}
@@ -56,6 +63,7 @@ export const Login: React.FC = () => {
           sx={{ margin: "10px", width: "350px" }}
           type="password"
           name="password"
+          aria-label="password"
           label="password"
           value={state.password}
           onChange={handleInputChange}
@@ -71,7 +79,8 @@ export const Login: React.FC = () => {
           padding: "10px",
         }}
         type="submit"
-        name="Email"
+        name="Login"
+        role="login button"
       >
         Login
       </Button>

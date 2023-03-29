@@ -17,26 +17,7 @@ import { TUser } from "../users/types";
 export const UsersByEvent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState<TUser[]>([]);
-  const [searchEventsNameParams, setSearchEventParams] = useSearchParams();
-
-  const removeUser = (id: number) => {
-    axios
-      .delete(`/users/${id}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() =>
-        setUsers(
-          users.filter((user) => {
-            return user.id !== id;
-          })
-        )
-      )
-      .catch((error) => {
-        alert(error.response.data.error);
-      });
-  };
+  const [searchEventsNameParams, _] = useSearchParams();
 
   useEffect(() => {
     {
@@ -50,7 +31,7 @@ export const UsersByEvent = () => {
         .catch((error) => console.log(error))
         .finally(() => setIsLoading(false));
     }
-  }, []);
+  }, [searchEventsNameParams]);
 
   return (
     <>
@@ -71,23 +52,18 @@ export const UsersByEvent = () => {
           <Table sx={{ minWidth: 650 }} aria-label="user table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Name</TableCell>
-                <TableCell align="center">Surname</TableCell>
-                <TableCell align="center">Birthdate</TableCell>
+                <TableCell align="left">Name</TableCell>
+                <TableCell align="left">Surname</TableCell>
+                <TableCell align="left">Birthdate</TableCell>
                 <TableCell align="center">Age</TableCell>
-                <TableCell align="center">Email</TableCell>
-                <TableCell align="center">Event</TableCell>
-                <TableCell align="center">Delete user</TableCell>
+                <TableCell align="left">Email</TableCell>
+                <TableCell align="left">Event</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
               {users.map((user) => (
-                <TableRow
-                  key={user.id}
-                  className="user-container"
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
+                <TableRow key={user.id} className="user-container">
                   <TableCell component="th" scope="row">
                     {user.name}
                   </TableCell>
@@ -95,25 +71,9 @@ export const UsersByEvent = () => {
                   <TableCell align="left">
                     {user.birthdate.toString().slice(0, 10)}
                   </TableCell>
-                  <TableCell align="left">{user.age}</TableCell>
+                  <TableCell align="center">{user.age}</TableCell>
                   <TableCell align="left">{user.email}</TableCell>
                   <TableCell align="left">{user.eventsName}</TableCell>
-
-                  <TableCell align="center">
-                    <Button
-                      variant="contained"
-                      sx={{
-                        background: "#ec407a",
-                        width: "80px",
-                        padding: "5px",
-                      }}
-                      onClick={() => {
-                        removeUser(user.id);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
